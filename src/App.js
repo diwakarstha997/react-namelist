@@ -3,11 +3,17 @@ import './App.css';
 
 function App() {
   const [name, setName] = useState(""); 
+  const [list, setList] = useState([]); 
 
   const handleOnChange = (e) => {
     const { value } = e.target;
     setName(value);
   }; 
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    setList([...list, name]);
+  }
 
   return (
     <div className="wrapper"
@@ -26,7 +32,7 @@ function App() {
         <div className="display">{name}</div>
 
         <div className="form">
-          <form action="">
+          <form action="" onSubmit={handleOnSubmit}>
             <input type="text" onChange={handleOnChange}/>
             <button>Add User</button>
           </form>
@@ -36,8 +42,11 @@ function App() {
 
         <div className="list">
           <ul>
-            <li>Diwakar</li>
-            <li>Sam</li>
+            {
+              list.map((item, i) => {
+                return <li key={i}>{item}</li>
+              })
+            }
           </ul>
         </div>
       </div>
